@@ -1,9 +1,9 @@
 #+TITLE: Emacs Configuration
-#+AUTHOR: Daniel Mai
+#+AUTHOR: James Kang
 
-I've been using Emacs extensively since the summer of 2013, and along
-the way I've become accustomed to many different tweaks for it.
+Originally from Daniel Mai's repository and almost all contents are credited to him.
 
+// comments by Daniel:
 This configuration uses the [[https://github.com/jwiegley/use-package][use-package]] package from John Wiegley, which is
 a fantastic way to manage package configurations.
 
@@ -13,11 +13,12 @@ seem strange on other keyboard layouts. I may assign a keybinding just
 because it's more on convenient on Dvorak. Though for the most part, I
 try to follow Emacs and assign bindings by mnemonics, would should
 make sense for any layout.
+// 
 
 * Installing Emacs
-
 On macOS, [[http://brew.sh/][homebrew]] is an easy way to install emacs.
-
+There are two brew versions - one regular and the other cask version.
+** regular version
 Here's what the parameters means.
 - ~--with-cocoa~ :: installs emacs with the macOS GUI version
 - ~--with-imagemagick~ :: installs emacs with imagemagick support for image processing
@@ -26,12 +27,16 @@ Here's what the parameters means.
 #+begin_src sh
 brew install emacs --with-cocoa --with-imagemagick --with-gnutls
 #+end_src
+** Cask version
+#+begin_src sh
+brew cask install emacs
+#+end_src
 
 * Personal Information
 
 #+begin_src emacs-lisp
-(setq user-full-name "Daniel Mai"
-      user-mail-address "daniel@danielmai.net")
+(setq user-full-name "James Kang"
+      user-mail-address "marchkang@gmail.com")
 #+end_src
 
 * Customize settings
@@ -343,7 +348,7 @@ http://stuff-things.net/2015/10/05/emacs-visible-bell-work-around-on-os-x-el-cap
 
 #+BEGIN_SRC emacs-lisp
 (let* ((cmd "sw_vers -productVersion")
-       (macos-version (string-to-int
+       (macos-version (string-to-number
                      (cadr (split-string
                             (shell-command-to-string cmd)
                             "\\."))))
@@ -753,7 +758,7 @@ access magit.
 (use-package magit
   :ensure t
   :defer t
-  :bind ("C-c g" . magit-status)
+  :bind ("C-x g" . magit-status)
   :config
   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 #+end_src
@@ -1092,9 +1097,10 @@ behavior when typing a templated snippet.
   :ensure t
   :diminish yas-minor-mode
   :config
+  (yas-global-mode)
   (setq yas-snippet-dirs (concat user-emacs-directory "snippets"))
-  (setq yas-indent-line 'fixed)
-  (yas-global-mode))
+  (setq yas-indent-line 'fixed))
+
 #+end_src
 
 ** Emmet
@@ -1110,7 +1116,7 @@ According to [[http://emmet.io/][their website]], "Emmet — the essential toolk
   (add-hook 'css-mode-hook 'emmet-mode))
 #+end_src
 
-** Zoom-frm
+** COMMENT (removed from melpa) Zoom-frm
 
 =zoom-frm= is a nice package that allows you to resize the text of
 entire Emacs frames (this includes text in the buffer, mode line, and
@@ -1314,11 +1320,12 @@ Luckily, I can modify the way Emacs formats code with this configuration.
 (add-hook 'java-mode-hook 'my-c-mode-hook)
 #+end_src
 
-** Jasmin
+** COMMENT Jasmin
 Mode for editing Jasmin Java bytecode assembler files.
 
 #+BEGIN_SRC emacs-lisp
-(use-package jasmin)
+(use-package jasmin
+  :ensure t )
 #+END_SRC
 
 ** Rust

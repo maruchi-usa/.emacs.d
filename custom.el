@@ -7,6 +7,9 @@
  '(custom-safe-themes
    (quote
     ("f0a99f53cbf7b004ba0c1760aa14fd70f2eabafe4e62a2b3cf5cabae8203113b" default)))
+ '(package-selected-packages
+   (quote
+    (jasmin rust-mode crux undo-tree latex-preview-pane latex-extra xquery-mode virtualenvwrapper quickrun slime shell-pop scratch zoom-frm emmet-mode yasnippet visual-regexp-steroids visual-regexp typescript-mode smooth-scrolling smex smartscan smartparens restclient geiser racket-mode python-mode multiple-cursors markdown-mode macrostep gist flycheck expand-region ein edit-server magit helm-swoop helm-ag helm-projectile helm dash-at-point clojure-mode c-eldoc android-mode ace-window ace-jump-mode ag ido-vertical-mode transpose-frame ox-pandoc org-plus-contrib exec-path-from-shell page-break-lines solarized-theme cyberpunk-theme use-package)))
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-color-map
    (quote
