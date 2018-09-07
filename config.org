@@ -1,9 +1,10 @@
+
 #+TITLE: Emacs Configuration
-#+AUTHOR: Daniel Mai
+#+AUTHOR: James Kang
 
-I've been using Emacs extensively since the summer of 2013, and along
-the way I've become accustomed to many different tweaks for it.
+Originally from Daniel Mai's repository and almost all contents are credited to him.
 
+// comments by Daniel:
 This configuration uses the [[https://github.com/jwiegley/use-package][use-package]] package from John Wiegley, which is
 a fantastic way to manage package configurations.
 
@@ -13,11 +14,12 @@ seem strange on other keyboard layouts. I may assign a keybinding just
 because it's more on convenient on Dvorak. Though for the most part, I
 try to follow Emacs and assign bindings by mnemonics, would should
 make sense for any layout.
+// 
 
 * Installing Emacs
-
 On macOS, [[http://brew.sh/][homebrew]] is an easy way to install emacs.
-
+There are two brew versions - one regular and the other cask version.
+** regular version
 Here's what the parameters means.
 - ~--with-cocoa~ :: installs emacs with the macOS GUI version
 - ~--with-imagemagick~ :: installs emacs with imagemagick support for image processing
@@ -26,12 +28,22 @@ Here's what the parameters means.
 #+begin_src sh
 brew install emacs --with-cocoa --with-imagemagick --with-gnutls
 #+end_src
+** Cask version
+#+begin_src sh
+brew cask install emacs
+#+end_src
 
+* Installing java and plantuml.jar
+Install Java with brew - it is required of PlantUML
+#+being_src sh
+brew cask install java
+brew install plantuml
+#+end_src
 * Personal Information
 
 #+begin_src emacs-lisp
-(setq user-full-name "Daniel Mai"
-      user-mail-address "daniel@danielmai.net")
+(setq user-full-name "James Kang"
+      user-mail-address "marchkang@gmail.com")
 #+end_src
 
 * Customize settings
@@ -343,7 +355,7 @@ http://stuff-things.net/2015/10/05/emacs-visible-bell-work-around-on-os-x-el-cap
 
 #+BEGIN_SRC emacs-lisp
 (let* ((cmd "sw_vers -productVersion")
-       (macos-version (string-to-int
+       (macos-version (string-to-number
                      (cadr (split-string
                             (shell-command-to-string cmd)
                             "\\."))))
@@ -388,6 +400,14 @@ source: [[http://whattheemacsd.com/sane-defaults.el-01.html][Magnars Sveen]]
   (setq recentf-max-saved-items 200))
 #+end_src
 
+* PlantUML
+#+BEGIN_SRC emacs-lisp
+(use-package plantuml-mode
+  :ensure t
+  :mode (("\\.puml\\'" . plantuml-mode)
+         ("\\.plantuml\\'" . plantuml-mode)))
+#+END_SRC
+
 * Org mode
 
 Truly the way to [[http://orgmode.org/][live life in plain text]]. I mainly use it to take
@@ -407,9 +427,9 @@ Although Org mode ships with Emacs, the latest version can be installed external
 
 On Org mode version 9 I wasn't able to execute source blocks out of the box. [[https://emacs.stackexchange.com/a/28604][Others have ran into the same issue too]]. The solution is to remove the .elc files from the package directory:
 
-#+BEGIN_SRC sh :var ORG_DIR=(let* ((org-v (cadr (split-string (org-version nil t) "@"))) (len (length org-v))) (substring org-v 1 (- len 2)))
-rm ${ORG_DIR}/*.elc
-#+END_SRC
+##+BEGIN_SRC sh :var ORG_DIR=(let* ((org-v (cadr (split-string (org-version nil t) "@"))) (len #(length org-v))) (substring org-v 1 (- len 2)))
+#rm ${ORG_DIR}/*.elc
+##+END_SRC
 
 ** Org activation bindings
 
@@ -429,14 +449,14 @@ Learned about [[https://github.com/sachac/.emacs.d/blob/83d21e473368adb1f63e582a
 (setq org-agenda-files
       (delq nil
             (mapcar (lambda (x) (and (file-exists-p x) x))
-                    '("~/Dropbox/Agenda"))))
+                    '("~/Dropbox/org/Agenda"))))
 #+end_src
 
 *** Org capture
 
 #+begin_src emacs-lisp
 (bind-key "C-c c" 'org-capture)
-(setq org-default-notes-file "~/Dropbox/Notes/notes.org")
+(setq org-default-notes-file "~/Dropbox/org/Notes/notes.org")
 #+end_src
 
 ** Org setup
@@ -477,8 +497,10 @@ good column number to do that.
  '((python . t)
    (C . t)
    (calc . t)
+   (ditaa . t)
    (latex . t)
    (java . t)
+   (plantuml . t)
    (ruby . t)
    (lisp . t)
    (scheme . t)
@@ -494,6 +516,8 @@ good column number to do that.
            (string= lang "emacs-lisp")
            (string= lang "sqlite"))))
 (setq org-confirm-babel-evaluate 'my-org-confirm-babel-evaluate)
+(setq org-plantuml-jar-path
+      (expand-file-name "~/.emacs.d/plantuml-1.2018.9.jar"))
 #+end_src
 
 ** Org babel/source blocks
@@ -753,7 +777,7 @@ access magit.
 (use-package magit
   :ensure t
   :defer t
-  :bind ("C-c g" . magit-status)
+  :bind ("C-x g" . magit-status)
   :config
   (define-key magit-status-mode-map (kbd "q") 'magit-quit-session))
 #+end_src
@@ -782,7 +806,8 @@ No more juggling windows after commiting. It's magit bliss.
   (jump-to-register :magit-fullscreen))
 #+end_src
 
-** Edit With Emacs
+** Edit With Ema
+** cs
 
 Editing input boxes from Chrome with Emacs. Pretty useful to keep all
 significant text-writing on the web within emacs. I typically use this
@@ -799,6 +824,13 @@ used.
   (setq edit-server-new-frame nil))
 #+end_src
 
+** COMMENT EverNote
+I am already hooked with evernote
+gem install evernote_oauth
+#+begin_src emacs-lisp
+(use-package evernote
+  :ensure t )
+#+end_src
 ** Elfeed
 
 #+begin_src emacs-lisp :tangle no
@@ -964,6 +996,15 @@ I get the chance.
   (setq geiser-default-implementation '(racket)))
 #+end_src
 
+** Elpy
+
+#+begin_src emacs-lisp
+(use-package elpy
+  :ensure t
+  :after python
+  :config (elpy-enable))
+
+#+end_src
 ** Restclient
 
 See [[http://emacsrocks.com/e15.html][Emacs Rocks! Episode 15]] to learn how restclient can help out with
@@ -1092,9 +1133,10 @@ behavior when typing a templated snippet.
   :ensure t
   :diminish yas-minor-mode
   :config
+  (yas-global-mode)
   (setq yas-snippet-dirs (concat user-emacs-directory "snippets"))
-  (setq yas-indent-line 'fixed)
-  (yas-global-mode))
+  (setq yas-indent-line 'fixed))
+
 #+end_src
 
 ** Emmet
@@ -1110,7 +1152,7 @@ According to [[http://emmet.io/][their website]], "Emmet — the essential toolk
   (add-hook 'css-mode-hook 'emmet-mode))
 #+end_src
 
-** Zoom-frm
+** COMMENT (removed from melpa) Zoom-frm
 
 =zoom-frm= is a nice package that allows you to resize the text of
 entire Emacs frames (this includes text in the buffer, mode line, and
@@ -1231,7 +1273,11 @@ while still being in org mode.
 (use-package undo-tree
   :ensure t)
 #+END_SRC
-
+** Org-Jira
+#+BEGIN_SRC emacs-lisp
+(use-package org-jira
+  :ensure t)
+#+END_SRC
 ** Crux
 
 Collection of Ridiculously Useful eXtensions
@@ -1314,11 +1360,12 @@ Luckily, I can modify the way Emacs formats code with this configuration.
 (add-hook 'java-mode-hook 'my-c-mode-hook)
 #+end_src
 
-** Jasmin
+** COMMENT Jasmin
 Mode for editing Jasmin Java bytecode assembler files.
 
 #+BEGIN_SRC emacs-lisp
-(use-package jasmin)
+(use-package jasmin
+  :ensure t )
 #+END_SRC
 
 ** Rust
@@ -1331,7 +1378,7 @@ Mode for editing Jasmin Java bytecode assembler files.
 
 * Misc
 ** Non-ELPA packages
-
+   
 Some packages aren't in ELPA, so they're stored in the [[file:site-lisp][site-lisp]]
 directory and loaded here.
 
@@ -1342,6 +1389,24 @@ As in the titlecase package instructions, the titlecase command needs to be in t
 #+BEGIN_SRC emacs-lisp
 (use-package titlecase
   :load-path "~/.emacs.d/site-lisp")
+#+END_SRC
+
+*** emacs-soap-client
+Needed for org-jira
+#+BEGIN_SRC emacs-lisp
+(use-package soap-client
+  :load-path "~/.emacs.d/site-lisp")
+#+END_SRC
+
+*** zoom-frm 
+#+BEGIN_SRC emacs-lisp
+(use-package zoom-frm
+  :load-path "~/.emacs.d/site-lisp"
+  :bind (("C-M-=" . zoom-in/out)
+         ("H-z"   . toggle-zoom-frame)
+         ("s-<f1>" . toggle-zoom-frame))
+  :config
+  (setq frame-zoom-font-difference 10))
 #+END_SRC
 
 ** Display Time
