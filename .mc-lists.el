@@ -16,6 +16,7 @@
         delete-horizontal-space
         electric-newline-and-maybe-indent
         end-of-visual-line
+        graphviz-dot-preview
         helm-confirm-and-exit-minibuffer
         indent-for-tab-command
         kill-visual-line

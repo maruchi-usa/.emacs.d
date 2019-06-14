@@ -499,6 +499,7 @@ good column number to do that.
    (calc . t)
    (ditaa . t)
    (latex . t)
+   (dot   . t)
    (java . t)
    (plantuml . t)
    (ruby . t)
@@ -1001,7 +1002,7 @@ I get the chance.
 #+begin_src emacs-lisp
 (use-package elpy
   :ensure t
-  :after python
+  :after python-mode
   :config (elpy-enable))
 
 #+end_src
@@ -1278,6 +1279,12 @@ while still being in org mode.
 (use-package org-jira
   :ensure t)
 #+END_SRC
+** Yaml
+#+BEGIN_SRC emacs-lisp
+(use-package yaml-mode
+  :ensure t
+  :defer t)
+#+END_SRC
 ** Crux
 
 Collection of Ridiculously Useful eXtensions
@@ -1287,6 +1294,19 @@ Collection of Ridiculously Useful eXtensions
   :ensure t
   :bind (("C-c o o" . crux-open-with)
          ("C-c u" . crux-view-url)))
+#+END_SRC
+** graphviz-dot-mode
+graphviz is required
+#+BEGIN_SRC emacs-lisp
+(use-package graphviz-dot-mode
+    :ensure t)
+#+END_SRC
+** Atomic-Chrome
+#+BEGIN_SRC emacs-lisp
+(use-package atomic-chrome
+    :ensure t
+    :config
+    (atomic-chrome-start-server))
 #+END_SRC
 * Computer-specific settings
 

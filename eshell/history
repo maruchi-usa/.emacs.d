@@ -1,0 +1,27 @@
+ssh ir-prometheus 
+dstat
+ssh ir-prometheus 
+ssh ir-prometheus 
+exit
+pwd
+echo
+echo $0
+pwd
+ls -ltr
+clear
+pwd
+cd
+ls
+cd Working/
+cd ../Workspace/
+ls
+ls -ltr
+cd Jenkins-testing-osx/
+ls
+vagrant status
+vagrant status
+vagrant ssh
+ps
+vagrant ssh
+ssh ir-prometheus 
+vagrant ssh

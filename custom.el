@@ -12,7 +12,6 @@
  '(custom-safe-themes
    (quote
     ("f0a99f53cbf7b004ba0c1760aa14fd70f2eabafe4e62a2b3cf5cabae8203113b" default)))
-<<<<<<< HEAD
  '(fci-rule-color "#eee8d5")
  '(highlight-changes-colors (quote ("#d33682" "#6c71c4")))
  '(highlight-symbol-colors
@@ -44,17 +43,12 @@
     ("#dc322f" "#cb4b16" "#b58900" "#546E00" "#B4C342" "#00629D" "#2aa198" "#d33682" "#6c71c4")))
  '(package-selected-packages
    (quote
-    (elpy org-jira evernote-mode org zoom-window plantuml-mode plantuml jasmin rust-mode crux undo-tree latex-preview-pane latex-extra xquery-mode virtualenvwrapper quickrun slime shell-pop scratch zoom-frm emmet-mode yasnippet visual-regexp-steroids visual-regexp typescript-mode smooth-scrolling smex smartscan smartparens restclient geiser racket-mode python-mode multiple-cursors markdown-mode macrostep gist flycheck expand-region ein edit-server magit helm-swoop helm-ag helm-projectile helm dash-at-point clojure-mode c-eldoc android-mode ace-window ace-jump-mode ag ido-vertical-mode transpose-frame ox-pandoc org-plus-contrib exec-path-from-shell page-break-lines solarized-theme cyberpunk-theme use-package)))
+    (atomic-chrome elpy graphviz-dot-mode ansible-doc yaml-mode jasmin rust-mode crux undo-tree latex-preview-pane latex-extra xquery-mode virtualenvwrapper quickrun slime shell-pop scratch zoom-frm emmet-mode yasnippet visual-regexp-steroids visual-regexp typescript-mode smooth-scrolling smex smartscan smartparens restclient geiser racket-mode python-mode multiple-cursors markdown-mode macrostep gist flycheck expand-region ein edit-server magit helm-swoop helm-ag helm-projectile helm dash-at-point clojure-mode c-eldoc android-mode ace-window ace-jump-mode ag ido-vertical-mode transpose-frame ox-pandoc org-plus-contrib exec-path-from-shell page-break-lines solarized-theme cyberpunk-theme use-package)))
  '(pos-tip-background-color "#eee8d5")
  '(pos-tip-foreground-color "#586e75")
  '(smartrep-mode-line-active-bg (solarized-color-blend "#859900" "#eee8d5" 0.2))
  '(term-default-bg-color "#fdf6e3")
  '(term-default-fg-color "#657b83")
-=======
- '(package-selected-packages
-   (quote
-    (jasmin rust-mode crux undo-tree latex-preview-pane latex-extra xquery-mode virtualenvwrapper quickrun slime shell-pop scratch zoom-frm emmet-mode yasnippet visual-regexp-steroids visual-regexp typescript-mode smooth-scrolling smex smartscan smartparens restclient geiser racket-mode python-mode multiple-cursors markdown-mode macrostep gist flycheck expand-region ein edit-server magit helm-swoop helm-ag helm-projectile helm dash-at-point clojure-mode c-eldoc android-mode ace-window ace-jump-mode ag ido-vertical-mode transpose-frame ox-pandoc org-plus-contrib exec-path-from-shell page-break-lines solarized-theme cyberpunk-theme use-package)))
->>>>>>> 07c211701c7407302b1c1aec7486e5237e6bcc20
  '(vc-annotate-background "#2B2B2B")
  '(vc-annotate-background-mode nil)
  '(vc-annotate-color-map
